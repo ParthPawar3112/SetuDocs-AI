@@ -61,7 +61,7 @@ Small shop owners, farmers and the CAs and CSC operators who serve them keep the
 
 ### Also included
 - **Analytics** dashboard for Admins (uploads over time, approval ratio, department and category breakdowns).
-- **PDF export** of a one-page document summary.
+- **PDF export** of a short document summary (about one to two pages).
 - **Settings** (Admin): shows the configured OCR engine, Gemini model and upload limits (read-only, set in `.env`) and lets you tune the AI-confidence warning threshold.
 - **Recovery Center** (Admin): a disaster-recovery **simulation**. It takes verified snapshots, simulates an outage that suspends writes, and replays queued operations. It does not touch or damage the real database.
 - Light and dark mode, document preview, AI-metadata JSON export.
@@ -148,7 +148,7 @@ An upload is validated and stored, then OCR runs in the background, then Gemini 
 - **Tesseract OCR** with the `eng` and `mar` language files
   - Windows: install Tesseract (for example the UB Mannheim build), which includes `eng`. Download `mar.traineddata` from the [tessdata_fast](https://github.com/tesseract-ocr/tessdata_fast) repository and put it in Tesseract's `tessdata` folder. If that folder is not writable, keep your own `tessdata` folder and point `TESSDATA_PREFIX` at it. If `tesseract` is not on your `PATH`, set `TESSERACT_CMD`.
   - macOS / Linux: install Tesseract and its Marathi language pack with your package manager (not tested by us).
-  - No `mar.traineddata` yet? Set `OCR_LANGUAGE=eng`. The app runs, but Marathi text will not be read.
+  - No `mar.traineddata` yet? Set `OCR_LANGUAGE=eng`. With `eng+mar` and no Marathi file, OCR does not fail: Tesseract quietly reads English only, so Marathi text is silently not read.
 - A **Gemini API key** from [Google AI Studio](https://aistudio.google.com/apikey). Without one the app still runs, and AI extraction reports "not configured".
 
 ### Backend
@@ -221,15 +221,15 @@ More detail in [docs/DEMO.md](docs/DEMO.md).
 
 ## Testing
 
-At the time of writing, `python -m pytest -q tests` reports **82 passed**. Backend tests:
+At the time of writing, `python -m pytest -q tests` reports **84 passed**. Backend tests:
 
 | Suite | Tests | Covers |
 |---|---:|---|
 | `test_search_service.py` | 24 | Tokenised search across fields, filters, sorting, fuzzy fallback |
 | `test_ai_service.py` | 12 | Gemini response parsing, retries, quota and key errors, API-key redaction (Gemini mocked) |
-| `test_setu.py` | 46 | Document-type detection, English/Marathi date extraction, deadline sync and API, Scheme Matcher rules, Impact figures, upload-to-deadline pipeline |
+| `test_setu.py` | 48 | Document-type detection, English/Marathi date extraction, deadline sync and API, Scheme Matcher rules, Impact figures, upload-to-deadline pipeline, trust assessment after the AI step |
 
-Not covered by automated tests: authentication and role checks, upload validation, the Trust & Verification engine, the Recovery Center and the frontend. The frontend is verified only by `npm run build`.
+Not covered by the pytest suites: authentication and role checks, upload validation, the Trust & Verification engine, the Recovery Center and the frontend. The first three, plus the other role-based endpoints, are exercised end to end by `backend/scripts/demo_check.py` (an API smoke test run against a running backend, see [docs/DEMO.md](docs/DEMO.md)). The frontend is verified only by `npm run build` and manual walkthroughs.
 
 ## Project structure
 
@@ -238,7 +238,7 @@ SetuDocsAI/
 ├── backend/
 │   ├── app/              FastAPI app: routers, services, models, schemas, data/schemes.json
 │   ├── tests/            pytest suites
-│   ├── scripts/          standalone Marathi OCR smoke test
+│   ├── scripts/          seed_demo.py, demo_check.py (demo data and API smoke test), Marathi OCR test
 │   ├── .env.example      every backend setting, documented
 │   ├── requirements.txt
 │   └── requirements-dev.txt

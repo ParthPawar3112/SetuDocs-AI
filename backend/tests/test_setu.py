@@ -463,6 +463,25 @@ class PipelineIntegrationTests(DatabaseTestCase):
     def setUp(self):
         super().setUp()
         settings.GEMINI_API_KEY = "test-key"
+        # Keep the chained trust-verification step offline (it makes its own Gemini call);
+        # the tests that exercise it for real clear the API key to use its heuristic path.
+        chain = patch("app.services.verification_service.process_document_verification")
+        self.verification_chain = chain.start()
+        self.addCleanup(chain.stop)
+
+    def test_trust_assessment_is_chained_after_ai_success_and_after_ai_failure(self):
+        """Regression: the success path used to return before the verification step ran, so a
+        document whose AI extraction worked never got a trust assessment."""
+        ok_doc = self.make_document(ocr_text=self.OCR)
+        with patch.object(ai_service, "_call_gemini", return_value=self.GEMINI):
+            ai_service.process_document_ai(ok_doc.id)
+        self.verification_chain.assert_called_once_with(ok_doc.id)
+
+        self.verification_chain.reset_mock()
+        failed_doc = self.make_document(ocr_text=self.OCR)
+        with patch.object(ai_service, "_call_gemini", side_effect=ai_service.AIConfigurationError("no key")):
+            ai_service.process_document_ai(failed_doc.id)
+        self.verification_chain.assert_called_once_with(failed_doc.id)
 
     def test_ai_success_creates_types_and_deadlines_with_ai_label(self):
         document = self.make_document(ocr_text=self.OCR)
@@ -507,6 +526,21 @@ class PipelineIntegrationTests(DatabaseTestCase):
             self.assertIsNone(setu_pipeline.process_document_insights(12345))
             document = self.make_document(ocr_text=self.OCR)
             self.assertIsNone(setu_pipeline.process_document_insights(document.id))
+
+
+class TrustChainIntegrationTests(DatabaseTestCase):
+    """The real trust-verification step (heuristic mode, no network) after a successful AI run."""
+
+    def test_ai_success_leaves_a_real_trust_assessment_on_the_document(self):
+        settings.GEMINI_API_KEY = ""  # verification then uses its offline heuristic path
+        document = self.make_document(ocr_text=PipelineIntegrationTests.OCR)
+        with patch.object(ai_service, "_call_gemini", return_value=PipelineIntegrationTests.GEMINI):
+            ai_service.process_document_ai(document.id)
+        self.db.expire_all()
+        self.assertTrue(self.db.get(Document, document.id).ai_processed)
+        row = self.db.query(verification.DocumentVerification).filter_by(document_id=document.id).one()
+        self.assertIsNotNone(row.trust_score)
+        self.assertIn(row.verification_status, ("VERIFIED", "CORROBORATED", "NEEDS_REVIEW", "FLAGGED"))
 
 
 if __name__ == "__main__":

@@ -25,6 +25,10 @@ __pycache__/
 backend/uploads/*
 !backend/uploads/.gitkeep
 backend/recovery/
+# Demo recording: seeded demo uploads, generated sample photo, QA backup screenshots
+backend/demo_uploads/
+backend/demo_assets/
+qa-screenshots/
 
 # --- Node / build output ---
 node_modules/

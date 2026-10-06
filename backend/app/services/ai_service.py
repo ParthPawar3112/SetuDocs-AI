@@ -366,14 +366,16 @@ def process_document_ai(document_id: int) -> None:
 
             process_document_insights(document_id, ai_dates)
 
-    # Chain the Document Trust & Verification layer ("The Bad Reading").
-    # Runs whether AI metadata succeeded or not - it can still assess
-    # provenance and extract heuristic claims. Fully isolated: its own DB
-    # session, and any failure here is logged, never propagated.
-    if should_verify:
-        try:
-            from app.services.verification_service import process_document_verification
+        # Chain the Document Trust & Verification layer ("The Bad Reading").
+        # Must live in this finally block, not after it: the success path
+        # above returns from inside the try, which would skip any code placed
+        # after the finally. Runs whether AI metadata succeeded or not - it can
+        # still assess provenance and extract heuristic claims. Fully isolated:
+        # its own DB session, and any failure here is logged, never propagated.
+        if should_verify:
+            try:
+                from app.services.verification_service import process_document_verification
 
-            process_document_verification(document_id)
-        except Exception:  # noqa: BLE001
-            logger.exception(f"verification chain failed for document {document_id}")
+                process_document_verification(document_id)
+            except Exception:  # noqa: BLE001
+                logger.exception(f"verification chain failed for document {document_id}")

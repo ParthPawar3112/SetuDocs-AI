@@ -47,6 +47,11 @@ class AIServiceTests(unittest.TestCase):
     def setUp(self):
         Base.metadata.create_all(bind=engine)
         settings.GEMINI_API_KEY = "test-key-for-mocked-tests"
+        # The trust-verification step chained after AI makes its own Gemini call;
+        # these tests are about metadata extraction only, so keep them offline.
+        chain = patch("app.services.verification_service.process_document_verification")
+        chain.start()
+        self.addCleanup(chain.stop)
         self.db = SessionLocal()
         self.document = Document(
             title="Test Doc",
