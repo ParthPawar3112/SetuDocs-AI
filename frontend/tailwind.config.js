@@ -1,0 +1,129 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: "class",
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  theme: {
+    extend: {
+      colors: {
+        // Legacy Phase 1 tokens - kept so nothing that still references them breaks.
+        brand: {
+          50: "#eff6ff",
+          100: "#dbeafe",
+          500: "#2563eb",
+          600: "#1d4ed8",
+          700: "#1e40af",
+        },
+        surface: "#f4f6f8",
+
+        // Phase 3 design system - exact palette from the design brief.
+        primary: {
+          DEFAULT: "#2563EB",
+          dark: "#1E3A8A",
+          50: "#EFF4FF",
+          100: "#DBE6FE",
+        },
+        app: "#F8FAFC",
+        ink: {
+          DEFAULT: "#0F172A",
+          soft: "#5B6A7F", // darkened from #64748B so small text stays >= 4.5:1 on tinted surfaces
+        },
+        success: "#22C55E",
+        warning: "#F59E0B",
+        danger: "#EF4444",
+        line: "#E2E8F0",
+      },
+      fontFamily: {
+        sans: ["Inter", "Noto Sans Devanagari", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        card: "0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06)",
+        "card-hover": "0 4px 12px -2px rgb(15 23 42 / 0.08), 0 2px 6px -2px rgb(15 23 42 / 0.06)",
+        glass: "0 8px 32px 0 rgb(15 23 42 / 0.12)",
+      },
+      keyframes: {
+        // opacity-only: a transform here (even a resolved no-op like
+        // translateY(0)) would persist past the animation's end via this
+        // utility's `both` fill-mode, leaving the animated element's computed
+        // transform as a non-"none" matrix. Per spec, that makes the element
+        // a new containing block for any position:fixed descendant, silently
+        // breaking that descendant's viewport-relative positioning (this bit
+        // FiltersPanel's <aside>, nested inside a fadeIn-animated <main>).
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        slideInRight: {
+          from: { opacity: 0, transform: "translateX(8px)" },
+          to: { opacity: 1, transform: "translateX(0)" },
+        },
+        scaleIn: {
+          from: { opacity: 0, transform: "scale(0.96)" },
+          to: { opacity: 1, transform: "scale(1)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-400px 0" },
+          "100%": { backgroundPosition: "400px 0" },
+        },
+        scanLine: {
+          "0%, 100%": { transform: "translateY(-1px)" },
+          "50%": { transform: "translateY(139px)" },
+        },
+        floatSlow: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        pulseSoft: {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0.55 },
+        },
+        // SetuDocs: product-preview card set on the login hero. The global
+        // prefers-reduced-motion rule in index.css collapses all of these.
+        fadeUp: {
+          from: { opacity: 0, transform: "translateY(14px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        chipPop: {
+          from: { opacity: 0, transform: "scale(0.88) translateY(8px)" },
+          to: { opacity: 1, transform: "scale(1) translateY(0)" },
+        },
+        scan: {
+          "0%": { top: "6%", opacity: 0 },
+          "12%": { opacity: 1 },
+          "88%": { opacity: 1 },
+          "100%": { top: "92%", opacity: 0 },
+        },
+        drift: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
+        },
+        slideUp: {
+          from: { opacity: 0, transform: "translateY(12px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        // Page change: a soft rise. Paired with fill-mode "backwards" (not "both") so no
+        // transform lingers afterwards - a leftover transform would turn <main> into the
+        // containing block for position:fixed children (see the fadeIn note above).
+        pageIn: {
+          from: { opacity: 0, transform: "translateY(8px)" },
+          to: { opacity: 1, transform: "none" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.45s cubic-bezier(0.16,1,0.3,1) both",
+        slideInRight: "slideInRight 0.3s cubic-bezier(0.16,1,0.3,1) both",
+        scaleIn: "scaleIn 0.2s cubic-bezier(0.16,1,0.3,1) both",
+        shimmer: "shimmer 1.6s linear infinite",
+        scanLine: "scanLine 3.2s ease-in-out infinite",
+        floatSlow: "floatSlow 5s ease-in-out infinite",
+        pulseSoft: "pulseSoft 2.4s ease-in-out infinite",
+        fadeUp: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both",
+        chipPop: "chipPop 0.55s cubic-bezier(0.16,1,0.3,1) both",
+        scan: "scan 3.4s ease-in-out infinite",
+        drift: "drift 6s ease-in-out infinite",
+        slideUp: "slideUp 0.35s cubic-bezier(0.16,1,0.3,1) both",
+        pageIn: "pageIn 0.4s cubic-bezier(0.16,1,0.3,1) backwards",
+      },
+    },
+  },
+  plugins: [],
+};

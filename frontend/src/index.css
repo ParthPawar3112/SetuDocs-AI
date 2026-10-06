@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-app text-ink dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  /* Visible keyboard focus everywhere - accessibility requirement from the brief. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary/60 ring-offset-2 ring-offset-app dark:ring-offset-slate-950;
+  }
+
+  /* Respect reduced-motion preferences. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Secondary text: in dark mode lift it so it keeps >= 4.5:1 against the slate surfaces. */
+  .dark .text-ink-soft {
+    color: #94a3b8;
+  }
+  /* Green used for small text must reach 4.5:1 on white (the brand #22C55E is only 2.3:1). */
+  .text-success {
+    color: #15803d;
+  }
+  .dark .text-success {
+    color: #4ade80;
+  }
+  /* Same for red and the brand blue: lighter in dark mode, deeper red on light, so small text keeps >= 4.5:1. */
+  .text-danger {
+    color: #dc2626;
+  }
+  .dark .text-danger {
+    color: #f87171;
+  }
+  .dark .text-primary {
+    color: #93c5fd;
+  }
+  .dark .hover\:text-primary-dark:hover {
+    color: #bfdbfe;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-slate-200 dark:bg-slate-800;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 400px 100%;
+    background-repeat: no-repeat;
+  }
+  .dark .skeleton {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 9999px;
+  }
+}

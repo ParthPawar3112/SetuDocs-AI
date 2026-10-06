@@ -1,0 +1,52 @@
+// Scheme Matcher.
+export default {
+  "schemes.heading": "Schemes you may qualify for",
+  "schemes.desc": "Based on your business profile and the documents you have already uploaded.",
+  "schemes.loadError": "Could not load scheme matches",
+  "schemes.loadErrorBody": "Could not load scheme matches.",
+
+  "schemes.profile.title": "Your business profile",
+  "schemes.profile.hint":
+    "Optional. Leave anything you are unsure about blank - we will tell you which answers would settle it.",
+  "schemes.profile.skip": "Not sure / skip",
+  "schemes.profile.statePlaceholder": "e.g. Maharashtra",
+  "schemes.profile.save": "Save profile",
+  "schemes.profile.saved": "Profile saved. Matches updated.",
+  "schemes.profile.saveError": "Could not save your profile.",
+
+  "schemes.verified": "Scheme details verified on {date}",
+  "schemes.analysed": "Documents checked: {count}",
+  "schemes.englishNote": "",
+
+  "schemes.filter.label": "Filter schemes by match level",
+  "schemes.filter.all": "All",
+  "schemes.filter.likely": "Likely",
+  "schemes.filter.possible": "Possible",
+  "schemes.emptyTitle": "No schemes match your profile",
+  "schemes.emptyBody":
+    "Based on the answers above, none of the schemes we track apply. Check your profile answers, or clear a field you were unsure about.",
+  "schemes.noLikely": "No likely matches",
+  "schemes.noPossible": "No possible matches",
+  "schemes.switchFilter": "Switch the filter above to see the other schemes.",
+
+  "schemes.card.likely": "Likely match",
+  "schemes.card.possible": "Possible match",
+  "schemes.card.alreadyDone": "You already have this",
+  "schemes.card.offers": "What it offers:",
+  "schemes.card.forWho": "Who it is for:",
+  "schemes.card.why": "Why this shows up",
+  "schemes.card.whyNone": "Nothing to confirm yet - add your profile answers or upload your documents.",
+  "schemes.card.missingFields": "To confirm this, tell us your: {fields}.",
+  "schemes.card.readiness": "Document readiness",
+  "schemes.card.readinessAria": "{name} document readiness",
+  "schemes.card.required": "Required documents",
+  "schemes.card.helpful": "Helpful to have",
+  "schemes.card.have": "You have: ",
+  "schemes.card.lack": "Still missing: ",
+  "schemes.card.howTo": "How to apply",
+  "schemes.card.portal": "Official portal",
+  "schemes.card.newTab": " (opens in a new tab)",
+  "schemes.card.source": "Source: {source}",
+  "schemes.reason.have": "You have: {doc}",
+  "schemes.reason.haveHelps": "You have: {doc} (helps your application)",
+};

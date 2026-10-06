@@ -1,0 +1,22 @@
+export default {
+  "myDocs.eyebrow": "माझी कागदपत्रे",
+  "myDocs.title": "तुमची कागदपत्रे",
+  "myDocs.subtitle": "{name} यांनी जोडलेली कागदपत्रे. प्रत्येक कागदपत्र वाचले आणि तपासले जाताना त्याची स्थिती पाहा.",
+  "myDocs.refresh": "पुन्हा लोड करा",
+  "myDocs.emptyTitle": "अजून कागदपत्रे नाहीत",
+  "myDocs.emptyBody": "परवाना, पॉलिसी किंवा नोंदणी जोडा. SetuDocs ते वाचते आणि त्यातील तारखा लक्षात ठेवते.",
+  "myDocs.loadError": "तुमची कागदपत्रे लोड होऊ शकली नाहीत",
+  "myDocs.col.document": "कागदपत्र",
+  "myDocs.col.submitted": "जमा केले",
+  "myDocs.col.status": "स्थिती",
+  "myDocs.col.ocr": "मजकूर वाचन",
+  "myDocs.col.ai": "AI सारांश",
+  "myDocs.open": "{title} उघडा",
+  "stage.completed": "पूर्ण",
+  "stage.processing": "सुरू आहे",
+  "stage.failed": "अयशस्वी",
+  "stage.pending": "प्रतीक्षेत",
+
+  "citizenHome.eyebrow": "तुमची वर्कस्पेस",
+  "citizenHome.myDocs": "माझी कागदपत्रे",
+};

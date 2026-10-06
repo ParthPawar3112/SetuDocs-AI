@@ -1,0 +1,40 @@
+# --- Secrets and local config ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# --- Databases (runtime and test) ---
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.db.bak*
+*.sqlite
+*.sqlite3
+
+# --- Runtime data: uploaded documents and Recovery Center files ---
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/recovery/
+
+# --- Node / build output ---
+node_modules/
+frontend/dist/
+# Stray empty lockfile in backend/ (the backend has no npm packages)
+backend/package-lock.json
+
+# --- Logs and editor/OS files ---
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
