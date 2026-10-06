@@ -116,14 +116,24 @@ def run_timing(base: str, runs: int) -> None:
             print(f"  run {i}: upload failed {r.status_code} {detail(r)}")
             continue
         doc_id = r.json()["id"]
-        t1 = time.monotonic()
         result = wait_for_pipeline(cit, doc_id)
         total = time.monotonic() - t0
         doc = result["doc"]
+        # The trust assessment runs in the background after the AI step; time how long the Trust panel takes to fill in.
+        t_trust = None
+        while time.monotonic() - t0 < total + 90:
+            p = cit.get(f"/verification/{doc_id}")
+            if p.status_code == 200 and p.json().get("trust_score") is not None:
+                t_trust = time.monotonic() - t0
+                break
+            time.sleep(0.25)
         rows.append((t_upload, result["ocr_seconds"], result["ai_seconds"], total, doc.get("ai_status"), doc.get("ocr_status")))
         print(
             f"  run {i}: upload response {t_upload:.2f}s | OCR done +{(result['ocr_seconds'] or 0):.2f}s | "
-            f"AI done +{(result['ai_seconds'] or 0):.2f}s | end-to-end {total:.2f}s | ocr={doc.get('ocr_status')} ai={doc.get('ai_status')}"
+            f"AI done +{(result['ai_seconds'] or 0):.2f}s | end-to-end {total:.2f}s | ocr={doc.get('ocr_status')} ai={doc.get('ai_status')} | "
+            f"Trust panel filled +{t_trust:.2f}s (AI done + {t_trust - total:.2f}s)" if t_trust is not None else
+            f"  run {i}: upload response {t_upload:.2f}s | OCR done +{(result['ocr_seconds'] or 0):.2f}s | "
+            f"AI done +{(result['ai_seconds'] or 0):.2f}s | end-to-end {total:.2f}s | ocr={doc.get('ocr_status')} ai={doc.get('ai_status')} | Trust panel: NOT filled in 90s"
         )
         if doc.get("ai_error"):
             print(f"         ai_error: {doc['ai_error'][:140]}")
