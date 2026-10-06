@@ -1,7 +1,7 @@
 // Marathi - simple everyday wording, not literal translation.
 export default {
   "app.name": "SetuDocs AI",
-  "app.tagline": "कागदपत्रे, व्यवस्थित.",
+  "app.tagline": "कागदपत्रांचे रूपांतर कृतीयोग्य माहितीत.",
   "app.loadingWorkspace": "तुमची वर्कस्पेस तयार होत आहे…",
 
   "common.loading": "लोड होत आहे…",

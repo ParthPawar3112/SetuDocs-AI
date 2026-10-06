@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">SetuDocs AI</h1>
-<p align="center"><strong>Paperwork, sorted.</strong></p>
+<p align="center"><strong>Transforming Documents into Actionable Insights.</strong></p>
 
 SetuDocs AI turns scanned and photographed paperwork, in Marathi or English, into a searchable record that warns you before deadlines and shows the government schemes you qualify for. It was built for **Pragyan 2K26** (Track 4: Entrepreneurship & Future of Management) at **Sanjivani University, Kopargaon**, on top of our earlier project, **GovDocs AI**.
 

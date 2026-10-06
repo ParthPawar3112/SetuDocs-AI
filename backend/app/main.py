@@ -60,7 +60,7 @@ logger = logging.getLogger("govdocs.main")
 
 app = FastAPI(
     title=settings.APP_NAME,
-    description="SetuDocs AI - paperwork, sorted. Built on the GovDocs AI document-intelligence foundation.",
+    description="SetuDocs AI - Transforming Documents into Actionable Insights. Built on the GovDocs AI document-intelligence foundation.",
     version="0.2.0",
 )
 

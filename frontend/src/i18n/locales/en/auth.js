@@ -1,6 +1,6 @@
 // Login, signup and the marketing panel next to them.
 export default {
-  "auth.hero.title": "Paperwork, sorted.",
+  "auth.hero.title": "Transforming Documents into Actionable Insights.",
   "auth.hero.subtitle":
     "Upload any document, in Marathi or English. SetuDocs reads it, tracks your deadlines, and finds the schemes you qualify for.",
 

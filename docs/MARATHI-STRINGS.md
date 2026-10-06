@@ -21,7 +21,7 @@ Generated from `frontend/src/i18n/locales` (531 keys; checked against the locale
 
 | Key | English | Marathi | Flag |
 |---|---|---|---|
-| `auth.hero.title` | Paperwork, sorted. | कागदपत्रे, व्यवस्थित. |  |
+| `auth.hero.title` | Transforming Documents into Actionable Insights. | कागदपत्रांचे रूपांतर कृतीयोग्य माहितीत. | ?? New tagline (Oct 2026); needs a native-speaker check. |
 | `auth.hero.subtitle` | Upload any document, in Marathi or English. SetuDocs reads it, tracks your deadlines, and finds the schemes you qualify for. | कोणतेही कागदपत्र अपलोड करा, मराठीत किंवा इंग्रजीत. SetuDocs ते वाचते, तुमच्या मुदती लक्षात ठेवते आणि तुम्हाला मिळू शकणाऱ्या योजना शोधते. |  |
 | `auth.preview.caption` | How it works - an example | हे असे काम करते - एक उदाहरण |  |
 | `auth.preview.step.scan` | 1 · Scan | 1 · स्कॅन |  |
@@ -109,7 +109,7 @@ Generated from `frontend/src/i18n/locales` (531 keys; checked against the locale
 | Key | English | Marathi | Flag |
 |---|---|---|---|
 | `app.name` | SetuDocs AI | SetuDocs AI |  |
-| `app.tagline` | Paperwork, sorted. | कागदपत्रे, व्यवस्थित. |  |
+| `app.tagline` | Transforming Documents into Actionable Insights. | कागदपत्रांचे रूपांतर कृतीयोग्य माहितीत. | ?? New tagline (Oct 2026); needs a native-speaker check. |
 | `app.loadingWorkspace` | Getting your workspace ready… | तुमची वर्कस्पेस तयार होत आहे… | ?? 'वर्कस्पेस' is a loanword. |
 | `common.loading` | Loading… | लोड होत आहे… |  |
 | `common.retry` | Try again | पुन्हा प्रयत्न करा |  |

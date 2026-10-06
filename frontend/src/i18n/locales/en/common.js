@@ -1,7 +1,7 @@
 // Words and phrases shared across the whole app.
 export default {
   "app.name": "SetuDocs AI",
-  "app.tagline": "Paperwork, sorted.",
+  "app.tagline": "Transforming Documents into Actionable Insights.",
   "app.loadingWorkspace": "Getting your workspace ready…",
 
   "common.loading": "Loading…",
